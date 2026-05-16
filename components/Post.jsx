@@ -8,33 +8,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { Heart, MessageCircle, CalendarDays } from "lucide-react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Heart, MessageCircle } from "lucide-react";
 import UseCodeViewer from "./UseCodeViewer";
+import UserProfile from "./UserProfile";
 
 function Post() {
   return (
     <div>
       <Card className="mx-16">
         {/* profile */}
-        <div className="flex pl-4 gap-3">
-          <Avatar className="h-12 w-12 border rounded-2xl">
-            <AvatarImage
-              src="https://github.com/shadcn.png"
-              alt="@shadcn"
-              className="grayscale"
-            />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <div>
-            <h3>Alexa Rivera</h3>
-            <div className="flex items-center flex-row gap-2 text-sm text-muted-foreground">
-              <CalendarDays className="h-3" />
-              <span>08 May 2026</span>
-            </div>
-          </div>
-        </div>
+        <UserProfile />
         {/* post */}
         <CardHeader>
           <CardTitle className="text-2xl font-bold">Card Title</CardTitle>

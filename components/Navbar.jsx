@@ -1,11 +1,14 @@
 import React from "react";
 import { Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+const user = "Ashan";
 
 function Navbar() {
   return (
     <div>
-      <nav className="p-4 sticky">
+      <nav className="px-16 py-8 sticky">
         <div className="flex justify-between">
           {/* icon */}
           <div className="flex items-center gap-3">
@@ -20,12 +23,34 @@ function Navbar() {
             </div>
           </div>
           {/* buttons */}
-          <div className="flex items-center gap-3">
-            <Button variant="outline" className="rounded-sm px-6">
-              Log In
-            </Button>
-            <Button className="rounded-sm px-6">Sign Up</Button>
-          </div>
+          {!user ? (
+            <div>
+              <div className="flex items-center gap-3">
+                <Button variant="outline" className="rounded-sm px-6">
+                  Log In
+                </Button>
+                <Button className="rounded-sm px-6">Sign Up</Button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center gap-5">
+              <Button className="rounded-sm px-6">+ Post</Button>
+              {/* profile */}
+              <div className="flex items-center gap-3">
+                <Avatar className="h-8 w-8 border rounded-2xl">
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                    className="grayscale"
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <div>
+                  <h3>Alexa Rivera</h3>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
     </div>
