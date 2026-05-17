@@ -5,26 +5,20 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import {
   Field,
-  FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldContent,
 } from "@/components/ui/field";
+
 import { Input } from "@/components/ui/input";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroupTextarea,
-} from "@/components/ui/input-group";
 import { Checkbox } from "@/components/ui/checkbox";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,102 +28,190 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 export default function CreatePost() {
   const [form, setForm] = React.useState({
     title: "",
-    description: "",
+    github: "",
   });
-  const [checked, setChecked] = React.useState(false);
-  const [paymentMethod, setPaymentMethod] = React.useState("card")
+
+  const [reviewType, setReviewType] =
+    React.useState("Code Quality");
+
+  const [techStack, setTechStack] = React.useState([]);
+
+  const technologies = [
+    "JavaScript",
+    "React",
+    "Next.js",
+    "Node.js",
+    "TypeScript",
+  ];
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const toggleTech = (tech) => {
+    setTechStack((prev) =>
+      prev.includes(tech)
+        ? prev.filter((item) => item !== tech)
+        : [...prev, tech]
+    );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log({
+      ...form,
+      reviewType,
+      techStack,
+    });
+  };
+
+  const handleReset = () => {
+    setForm({
+      title: "",
+      github: "",
+    });
+
+    setReviewType("quality");
+    setTechStack([]);
+  };
+
   return (
-    <Card className="w-full sm:max-w-md absolute">
+    <Card className="w-full max-w-lg mx-auto absolute">
       <CardHeader>
-        <CardTitle>Post Your Code for Review </CardTitle>
-        {/* <CardDescription>
-          Help us improve by reporting bugs you encounter.
-        </CardDescription> */}
+        <CardTitle>
+          Post Your Code for Review
+        </CardTitle>
       </CardHeader>
 
       <CardContent>
-        <form id="form-rhf-demo">
-          <FieldGroup>
-            {/* project title */}
+        <form id="review-form" onSubmit={handleSubmit}>
+          <FieldGroup className="space-y-5">
+
+            {/* Project Title */}
             <Field>
-              <FieldLabel htmlFor="form-rhf-demo-title">
+              <FieldLabel htmlFor="title">
                 Project Title
               </FieldLabel>
 
               <Input
-                id="form-rhf-demo-title"
-                placeholder="React useState"
-                autoComplete="off"
+                id="title"
+                name="title"
+                placeholder="React useState Example"
                 value={form.title}
+                onChange={handleChange}
               />
             </Field>
-            {/* What do you need reviewed?  */}
+
+            {/* Review Type */}
             <Field>
-              <FieldLabel htmlFor="form-rhf-demo-title">
-                What do you need reviewed? 
+              <FieldLabel>
+                What do you need reviewed?
+              </FieldLabel>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline">
+                    {reviewType}
+                  </Button>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel>
+                      Select Review Type
+                    </DropdownMenuLabel>
+
+                    <DropdownMenuRadioGroup
+                      value={reviewType}
+                      onValueChange={setReviewType}
+                    >
+                      <DropdownMenuRadioItem value="quality">
+                        Code Quality
+                      </DropdownMenuRadioItem>
+
+                      <DropdownMenuRadioItem value="best-practices">
+                        Best Practices
+                      </DropdownMenuRadioItem>
+
+                      <DropdownMenuRadioItem value="performance">
+                        Performance
+                      </DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </Field>
+
+            {/* GitHub URL */}
+            <Field>
+              <FieldLabel htmlFor="github">
+                GitHub Repository URL (Optional)
               </FieldLabel>
 
               <Input
-                id="form-rhf-demo-title"
-                placeholder="React useState"
-                autoComplete="off"
-                value={form.title}
+                id="github"
+                name="github"
+                placeholder="https://github.com/user/repo"
+                value={form.github}
+                onChange={handleChange}
               />
             </Field>
-            {/* GitHub Repository URL (Optional) */}
+
+            {/* Tech Stack */}
             <Field>
-              <FieldLabel htmlFor="form-rhf-demo-title">
-                GitHub Repository URL (Optional)
+              <FieldLabel>
+                Tech Stack
               </FieldLabel>
 
-              <Input
-                id="form-rhf-demo-title"
-                placeholder="www.github.com"
-                autoComplete="off"
-                value={form.title}
-              />
-            </Field>
-            {/* tech stach */}
-            <Field orientation="horizontal">
-              <FieldLabel htmlFor="form-rhf-demo-title">
-                Tech Stack (select multiple)
-              </FieldLabel>
-              <br />
-              <Checkbox
-                id="terms-checkbox-2"
-                name="terms-checkbox-2"
-                defaultChecked
-              />
+              <div className="grid grid-cols-2 gap-3 mt-2">
+                {technologies.map((tech) => (
+                  <div
+                    key={tech}
+                    className="flex items-center gap-2"
+                  >
+                    <Checkbox
+                      id={tech}
+                      checked={techStack.includes(tech)}
+                      onCheckedChange={() =>
+                        toggleTech(tech)
+                      }
+                    />
 
-              <FieldContent>
-                <FieldLabel htmlFor="terms-checkbox-2">JavaScrpt</FieldLabel>
-              </FieldContent>
-              <Checkbox
-                id="terms-checkbox-2"
-                name="terms-checkbox-2"
-                defaultChecked
-              />
-              <FieldContent>
-                <FieldLabel htmlFor="terms-checkbox-2">React</FieldLabel>
-              </FieldContent>
+                    <label htmlFor={tech}>
+                      {tech}
+                    </label>
+                  </div>
+                ))}
+              </div>
             </Field>
+
           </FieldGroup>
         </form>
       </CardContent>
 
-      <CardFooter>
-        <Field orientation="horizontal">
-          <Button type="button" variant="outline">
-            Reset
-          </Button>
+      <CardFooter className="flex justify-end gap-2">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleReset}
+        >
+          Reset
+        </Button>
 
-          <Button type="submit" form="form-rhf-demo">
-            Submit
-          </Button>
-        </Field>
+        <Button
+          type="submit"
+          form="review-form"
+        >
+          Submit
+        </Button>
       </CardFooter>
     </Card>
   );
