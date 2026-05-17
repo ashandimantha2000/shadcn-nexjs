@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 export default function RootLayout({ children }) {
   return (
-    <html>
+    <html suppressHydrationWarning>
       <body>
         <ThemeProvider
           attribute="class"
