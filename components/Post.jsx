@@ -38,21 +38,38 @@ function Post() {
     <div>
       <Card className="mx-16">
         {posts.map((post, key) => (
-          <div key={key}>
+          <div key={key} className="py-6 border-b last:border-b-0">
             {/* profile */}
-            <UserProfile />
+            <UserProfile user={post.user} />
             {/* post */}
             <CardHeader>
               <CardTitle className="text-2xl font-bold">{post.title}</CardTitle>
-              <CardDescription>descrion goes here</CardDescription>
-              <CardAction>Card Action</CardAction>
+              {post.githubUrl && (
+                <CardDescription>
+                  <a
+                    href={post.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline font-mono text-sm"
+                  >
+                    {post.githubUrl}
+                  </a>
+                </CardDescription>
+              )}
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground leading-relaxed">
-                A reusable custom hook that syncs React state with localStorage.
-                Handles serialization and SSR automatically.
-              </p>
-              <br />
+              {post.tags && post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag.id}
+                      className="bg-secondary text-secondary-foreground text-xs px-2.5 py-0.5 rounded-full"
+                    >
+                      {tag.name}
+                    </span>
+                  ))}
+                </div>
+              )}
               {/* code snippet */}
               <UseCodeViewer code={post.description} />
             </CardContent>

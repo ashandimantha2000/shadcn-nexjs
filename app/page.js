@@ -3,7 +3,7 @@ import CodeViewer from "@/components/CodeViewer";
 import CreatePost from "@/components/CreatePost";
 import Post from "@/components/Post";
 import UseCodeViewer from "@/components/UseCodeViewer";
-import { UserProfile } from "@clerk/nextjs";
+import UserProfile from "@/components/UserProfile";
 
 function Home() {
   return (
