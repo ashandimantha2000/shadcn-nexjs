@@ -9,9 +9,9 @@ function Home() {
     <div>
       {/* this is home */}
       {/* <About /> */}
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <CreatePost />
-      </div>
+      </div> */}
       <Post />
     </div>
   );

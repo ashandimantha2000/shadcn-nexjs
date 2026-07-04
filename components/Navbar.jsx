@@ -1,9 +1,7 @@
 import React from "react";
 import { Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-const user = "Ashan";
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 function Navbar() {
   return (
@@ -23,34 +21,22 @@ function Navbar() {
             </div>
           </div>
           {/* buttons */}
-          {!user ? (
-            <div>
-              <div className="flex items-center gap-3">
-                <Button variant="outline" className="rounded-sm px-6">
-                  Log In
-                </Button>
-                <Button className="rounded-sm px-6">Sign Up</Button>
-              </div>
-            </div>
-          ) : (
+          
             <div className="flex items-center gap-5">
               <Button className="rounded-sm px-6">+ Post</Button>
-              {/* profile */}
-              <div className="flex items-center gap-3">
-                <Avatar className="h-8 w-8 border rounded-2xl">
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
-                    className="grayscale"
-                  />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <div>
-                  <h3>Alexa Rivera</h3>
-                </div>
-              </div>
+              {/* auth */}
+              <Show when="signed-out">
+                <SignInButton />
+                <SignUpButton>
+                  <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+                    Sign Up
+                  </button>
+                </SignUpButton>
+              </Show>
+              <Show when="signed-in">
+                <UserButton />
+              </Show>
             </div>
-          )}
         </div>
       </nav>
     </div>
