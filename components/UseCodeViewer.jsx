@@ -15,10 +15,10 @@ export default function App() {
 }
 `;
 
-function UseCodeViewer() {
+function UseCodeViewer(props) {
   return (
     <div>
-      <CodeViewer  code={sampleCode} language="javascript" title="JavaScript"/>
+      <CodeViewer  code={props.code} language="javascript" title="JavaScript"/>
     </div>
   );
 }

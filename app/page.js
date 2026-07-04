@@ -3,6 +3,7 @@ import CodeViewer from "@/components/CodeViewer";
 import CreatePost from "@/components/CreatePost";
 import Post from "@/components/Post";
 import UseCodeViewer from "@/components/UseCodeViewer";
+import { UserProfile } from "@clerk/nextjs";
 
 function Home() {
   return (
@@ -12,6 +13,7 @@ function Home() {
       {/* <div className="flex justify-center">
         <CreatePost />
       </div> */}
+      {/* <UserProfile /> */}
       <Post />
     </div>
   );
