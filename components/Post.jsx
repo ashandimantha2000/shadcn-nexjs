@@ -22,8 +22,12 @@ function Post() {
 
   async function loadPosts() {
     //if you want, can handle exception here (more spesific)
-    const data = await getAllPosts();
-    setPosts(data);
+    const response = await getAllPosts();
+
+    if (response.success) {
+      setPosts(response.data);
+    }
+    
   }
 
   useEffect(() => {
